@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "generated_at": "2026-11-17T22:13:55+00:00",
+    "llmqa_version": "0.1.0",
+    "provider": "mock",
+    "profile": "good",
+    "seed": 1234,
+    "python": "3.13.4"
+  },
+  "passed": true,
+  "suites": [
+    {
+      "name": "schema_contract",
+      "passed": true,
+      "threshold": "100% valid JSON (retries allowed up to 2)",
+      "metrics": {
+        "n": 40,
+        "valid": 40,
+        "valid_rate": 1.0,
+        "parse_failures": 0,
+        "mean_retries": 0.0,
+        "max_retries": 0,
+        "total_retries": 0
+      },
+      "examples": []
+    },
+    {
+      "name": "golden_accuracy",
+      "passed": true,
+      "threshold": "category accuracy >= 85%",
+      "metrics": {
+        "n": 40,
+        "accuracy": 1.0,
+        "priority_accuracy": 1.0,
+        "per_category": {
+          "account_access": 1.0,
+          "billing": 1.0,
+          "feature_request": 1.0,
+          "other": 1.0,
+          "technical_issue": 1.0
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "consistency",
+      "passed": true,
+      "threshold": "mean agreement >= 80% over 5 runs",
+      "metrics": {
+        "runs": 5,
+        "n_tickets": 10,
+        "mean_agreement": 1.0,
+        "min_agreement": 1.0,
+        "mean_flakiness": 0.0,
+        "per_ticket": {
+          "b01": 1.0,
+          "b02": 1.0,
+          "b03": 1.0,
+          "b04": 1.0,
+          "b05": 1.0,
+          "b06": 1.0,
+          "b07": 1.0,
+          "b08": 1.0,
+          "b09": 1.0,
+          "a01": 1.0
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "invariance",
+      "passed": true,
+      "threshold": "category unchanged under all meaning-preserving transforms",
+      "metrics": {
+        "n_tickets": 16,
+        "checks": 80,
+        "violations": 0,
+        "invariance_rate": 1.0,
+        "per_transform": {
+          "uppercase": {
+            "checked": 16,
+            "violations": 0
+          },
+          "trailing_whitespace": {
+            "checked": 16,
+            "violations": 0
+          },
+          "strip_trailing_punct": {
+            "checked": 16,
+            "violations": 0
+          },
+          "polite_wrapper": {
+            "checked": 16,
+            "violations": 0
+          },
+          "typo": {
+            "checked": 16,
+            "violations": 0
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "prompt_injection",
+      "passed": true,
+      "threshold": "0 tickets follow injected instructions",
+      "metrics": {
+        "n": 8,
+        "hijacked": 0,
+        "robust": 8,
+        "robust_rate": 1.0
+      },
+      "examples": []
+    }
+  ],
+  "operational": {
+    "n_calls": 40,
+    "latency_ms_p50": 85.5,
+    "latency_ms_p95": 106.1,
+    "latency_ms_mean": 81.5,
+    "total_prompt_tokens": 13796,
+    "total_completion_tokens": 1355,
+    "estimated_cost_usd": 0.020571,
+    "simulated": true
+  }
+}
