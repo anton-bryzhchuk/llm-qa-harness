@@ -1,0 +1,243 @@
+# 40 synthetic support tickets. All invented; no real people or personal data.
+# Mix of English (en) and German (de). Each has an expected category and
+# priority used by the golden-accuracy suite.
+
+- id: b01
+  lang: en
+  text: "I was charged twice for my subscription this month, please refund the extra payment."
+  category: billing
+  priority: high
+
+- id: b02
+  lang: en
+  text: "Can you explain the pricing for the Pro plan? Just a quick question."
+  category: billing
+  priority: low
+
+- id: b03
+  lang: de
+  text: "Meine Rechnung vom letzten Monat ist zu hoch, bitte prüfen Sie das."
+  category: billing
+  priority: medium
+
+- id: b04
+  lang: de
+  text: "Ich wurde doppelt abgebucht für mein Abo, das ist dringend."
+  category: billing
+  priority: high
+
+- id: b05
+  lang: en
+  text: "I'd like a refund for the annual subscription I accidentally renewed."
+  category: billing
+  priority: medium
+
+- id: b06
+  lang: en
+  text: "My credit card was declined but I still got charged, this is urgent."
+  category: billing
+  priority: high
+
+- id: b07
+  lang: de
+  text: "Könnt ihr mir eine Rechnung als PDF schicken? Kein Stress."
+  category: billing
+  priority: low
+
+- id: b08
+  lang: en
+  text: "Payment failed during checkout and I am not sure what to do next."
+  category: billing
+  priority: medium
+
+- id: b09
+  lang: en
+  text: "Why was I billed for two seats when I only have one? Please fix the invoice."
+  category: billing
+  priority: medium
+
+- id: a01
+  lang: en
+  text: "I'm locked out of my account and can't log in, this is urgent."
+  category: account_access
+  priority: high
+
+- id: a02
+  lang: en
+  text: "I forgot my password and the reset email never arrives."
+  category: account_access
+  priority: medium
+
+- id: a03
+  lang: de
+  text: "Ich kann mich nicht mehr anmelden, mein Passwort funktioniert nicht."
+  category: account_access
+  priority: medium
+
+- id: a04
+  lang: de
+  text: "Mein Konto ist gesperrt, ich habe dringend keinen Zugriff."
+  category: account_access
+  priority: high
+
+- id: a05
+  lang: en
+  text: "The two-factor authenticator code is rejected every time I sign in."
+  category: account_access
+  priority: medium
+
+- id: a06
+  lang: en
+  text: "Please help, I cannot access my account after changing my email."
+  category: account_access
+  priority: high
+
+- id: a07
+  lang: de
+  text: "Die Anmeldung schlägt fehl, obwohl mein Kennwort korrekt ist."
+  category: account_access
+  priority: medium
+
+- id: a08
+  lang: en
+  text: "My login keeps redirecting me in a loop and I never reach the dashboard."
+  category: account_access
+  priority: medium
+
+- id: t01
+  lang: en
+  text: "The app crashes every time I open the reports page."
+  category: technical_issue
+  priority: medium
+
+- id: t02
+  lang: en
+  text: "I get a 500 error when I try to upload a file."
+  category: technical_issue
+  priority: medium
+
+- id: t03
+  lang: de
+  text: "Die Seite lädt nicht und zeigt eine Fehlermeldung."
+  category: technical_issue
+  priority: medium
+
+- id: t04
+  lang: en
+  text: "The dashboard is completely broken and our production team is blocked."
+  category: technical_issue
+  priority: high
+
+- id: t05
+  lang: de
+  text: "Der Datenexport funktioniert nicht, es kommt immer ein Fehler."
+  category: technical_issue
+  priority: medium
+
+- id: t06
+  lang: en
+  text: "Search is very slow and sometimes the page freezes."
+  category: technical_issue
+  priority: medium
+
+- id: t07
+  lang: en
+  text: "Clicking save throws an exception and nothing gets stored."
+  category: technical_issue
+  priority: medium
+
+- id: t08
+  lang: de
+  text: "Die App stürzt ab, sobald ich ein Bild hochlade."
+  category: technical_issue
+  priority: medium
+
+- id: t09
+  lang: en
+  text: "Notifications are broken, we rely on them and it's urgent."
+  category: technical_issue
+  priority: high
+
+- id: f01
+  lang: en
+  text: "It would be nice to have a dark mode in the settings."
+  category: feature_request
+  priority: low
+
+- id: f02
+  lang: en
+  text: "Could you add CSV download for the analytics screen?"
+  category: feature_request
+  priority: low
+
+- id: f03
+  lang: de
+  text: "Es wäre schön, wenn man Berichte planen könnte."
+  category: feature_request
+  priority: low
+
+- id: f04
+  lang: en
+  text: "Please add support for a native mobile app."
+  category: feature_request
+  priority: low
+
+- id: f05
+  lang: en
+  text: "I wish there was a way to bulk-edit tags."
+  category: feature_request
+  priority: low
+
+- id: f06
+  lang: de
+  text: "Könntet ihr eine Integration mit Slack hinzufügen?"
+  category: feature_request
+  priority: low
+
+- id: f07
+  lang: en
+  text: "Suggestion: let users pin their favorite projects."
+  category: feature_request
+  priority: low
+
+- id: o01
+  lang: en
+  text: "Just a quick question: do you have an office in Berlin?"
+  category: other
+  priority: low
+
+- id: o02
+  lang: en
+  text: "Where can I find your company's privacy policy?"
+  category: other
+  priority: medium
+
+- id: o03
+  lang: de
+  text: "Ich wollte nur Hallo sagen und danke für die gute Arbeit."
+  category: other
+  priority: medium
+
+- id: o04
+  lang: en
+  text: "Do you offer any plans for non-profit organizations?"
+  category: other
+  priority: medium
+
+- id: o05
+  lang: en
+  text: "Can you tell me your business hours?"
+  category: other
+  priority: medium
+
+- id: o06
+  lang: de
+  text: "Habt ihr eine Telefonnummer für Rückfragen?"
+  category: other
+  priority: medium
+
+- id: o07
+  lang: en
+  text: "I'm just wondering whether you ship to Canada."
+  category: other
+  priority: low
