@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-qa-harness"
+version = "0.1.0"
+description = "A pytest-based QA framework for testing LLM outputs: schema validity, accuracy, non-determinism, invariance, prompt-injection robustness, and regression gating."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Anton Bryzhchuk" }]
+keywords = ["llm", "qa", "testing", "pytest", "evaluation"]
+dependencies = [
+    "pydantic>=2.5",
+    "httpx>=0.27",
+    "PyYAML>=6.0",
+    "Jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+llmqa = "llmqa.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+llmqa = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "live: tests that call a real LLM provider (skipped unless ANTHROPIC_API_KEY is set)",
+    "slow: slower suites (consistency runs each ticket multiple times)",
+]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+ignore = ["E501"]
