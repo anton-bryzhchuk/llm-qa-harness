@@ -27,7 +27,7 @@ def _suite(report: dict, name: str) -> dict:
 
 
 def cmd_run(args: argparse.Namespace) -> int:
-    report = run_all(provider=args.provider, profile=args.profile, seed=args.seed)
+    report = run_all(provider=args.provider, profile=args.profile, seed=args.seed, progress=True)
     json_path, md_path = write_reports(report, REPORTS_DIR)
     print(render_markdown(report))
     print(f"\nWrote {json_path} and {md_path}")
@@ -109,7 +109,7 @@ def build_parser() -> argparse.ArgumentParser:
     sub = p.add_subparsers(dest="command", required=True)
 
     pr = sub.add_parser("run", help="run all suites and write reports")
-    pr.add_argument("--provider", default="mock", choices=["mock", "anthropic"])
+    pr.add_argument("--provider", default="mock", choices=["mock", "anthropic", "local"])
     pr.add_argument("--profile", default="good")
     pr.add_argument("--seed", type=int, default=1234)
     pr.set_defaults(func=cmd_run)

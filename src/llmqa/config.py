@@ -30,8 +30,19 @@ CONSISTENCY_DROP_LIMIT = 0.10      # fail if consistency drops > 10 points
 # Retry policy for invalid JSON.
 MAX_RETRIES = 2                    # => up to 3 attempts total
 
-# Default live model.
+# Default live model (Anthropic provider).
 DEFAULT_MODEL = os.environ.get("LLM_MODEL") or "claude-haiku-4-5-20251001"
+
+# Local OpenAI-compatible endpoint (e.g. Ollama). No API key required.
+LOCAL_DEFAULT_MODEL = "llama3.2:3b"
+
+
+def llm_base_url() -> str:
+    return os.environ.get("LLM_BASE_URL", "").strip() or "http://localhost:11434/v1"
+
+
+def local_model() -> str:
+    return os.environ.get("LLM_MODEL", "").strip() or LOCAL_DEFAULT_MODEL
 
 # Approximate Anthropic Haiku pricing (USD per 1M tokens). Used for the
 # simulated/estimated cost line. These are rounded public list figures and are

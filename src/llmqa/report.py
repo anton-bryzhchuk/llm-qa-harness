@@ -33,11 +33,11 @@ _MD_TEMPLATE = Template(
 | Latency p50 | {{ operational.latency_ms_p50 }} ms |
 | Latency p95 | {{ operational.latency_ms_p95 }} ms |
 | Latency mean | {{ operational.latency_ms_mean }} ms |
-| Prompt tokens (total) | {{ operational.total_prompt_tokens }} |
-| Completion tokens (total) | {{ operational.total_completion_tokens }} |
-| Estimated cost (USD) | ${{ "%.6f"|format(operational.estimated_cost_usd) }} |
+| Prompt tokens (total) | {% if operational.tokens_reported %}{{ operational.total_prompt_tokens }}{% else %}not reported{% endif %} |
+| Completion tokens (total) | {% if operational.tokens_reported %}{{ operational.total_completion_tokens }}{% else %}not reported{% endif %} |
+| {% if operational.free %}Cost (USD){% else %}Estimated cost (USD){% endif %} | ${{ "%.6f"|format(operational.estimated_cost_usd) }}{% if operational.free %} (free / local){% endif %} |
 
-{% if operational.simulated %}> Latency, token counts and cost above are **simulated** by the mock provider, not measured from a live model.{% endif %}
+{% if operational.simulated %}> Latency, token counts and cost above are **simulated** by the mock provider, not measured from a live model.{% elif operational.free %}> Latency is **measured** from a local model. Cost is $0 (runs locally). Token counts are shown only if the endpoint reported them.{% endif %}
 
 ## Per-suite detail
 

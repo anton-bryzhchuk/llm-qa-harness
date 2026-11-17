@@ -22,4 +22,8 @@ def make_provider(kind: str = "mock", *, profile: str = "good", seed: int = 1234
         from .anthropic import AnthropicProvider
 
         return AnthropicProvider()
-    raise ValueError(f"unknown provider {kind!r}; choose 'mock' or 'anthropic'")
+    if kind == "local":
+        from .openai_compat import OpenAICompatibleProvider
+
+        return OpenAICompatibleProvider()
+    raise ValueError(f"unknown provider {kind!r}; choose 'mock', 'anthropic' or 'local'")
