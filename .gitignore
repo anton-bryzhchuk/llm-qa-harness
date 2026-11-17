@@ -22,6 +22,8 @@ env/
 # Generated reports (a committed sample lives in docs/ instead)
 reports/*
 !reports/.gitkeep
+# ...except the committed sample local-model run.
+!reports/local-latest.json
 
 # OS
 .DS_Store

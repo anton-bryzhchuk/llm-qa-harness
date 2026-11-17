@@ -99,7 +99,25 @@ make test     # pytest -q
 make lint     # ruff check .
 ```
 
-### Optional: live mode (real model)
+### Optional: local model (free, via Ollama)
+
+Run every suite against a real model with **no API key and no cost**, using an
+OpenAI-compatible endpoint such as [Ollama](https://ollama.com):
+
+```bash
+ollama pull llama3.2:3b          # ~2 GB
+python -m llmqa run --provider local      # LLM_BASE_URL defaults to Ollama, LLM_MODEL to llama3.2:3b
+```
+
+The `local` provider (`OpenAICompatibleProvider`) posts to
+`${LLM_BASE_URL:-http://localhost:11434/v1}/chat/completions` with
+`LLM_MODEL` (default `llama3.2:3b`). JSON mode is deliberately **not** enabled, so
+the schema suite tests the model's real output; `<think>…</think>` blocks are
+stripped before validation. Latency is measured, cost is $0, and token counts are
+reported when the endpoint provides them. **Real numbers from one such run are in
+[Live results (local model)](#live-results-local-model) below.**
+
+### Optional: live mode (Anthropic)
 
 ```bash
 cp .env.example .env            # then set ANTHROPIC_API_KEY (and optionally LLM_MODEL)
@@ -110,7 +128,8 @@ pytest -m live                  # runs the @live suite against the real API
 If `ANTHROPIC_API_KEY` is unset, the live tests **skip automatically** and nothing
 touches the network. The default `claude-haiku-4-5-20251001` model is used unless
 `LLM_MODEL` overrides it. The key is read from the environment and is never logged
-or committed.
+or committed. **The Anthropic provider is included but has not been run live**
+(no key was set), so this repo reports no Anthropic numbers.
 
 ## Test strategy
 
@@ -154,6 +173,34 @@ detected (full table in [`docs/demo-failures.md`](docs/demo-failures.md)):
 
 All four are detected, so `demo-failures` exits `0`.
 
+## Live results (local model)
+
+A real run against **`llama3.2:3b`** (3.2B, Q4_K_M, ~2 GB) via Ollama on an
+Apple M4 / 16 GB laptop, 2026-11-18, ~218 model calls, cost **$0.00**
+(`python -m llmqa run --provider local`). Full write-up with every disagreement
+in [`docs/live-results-local.md`](docs/live-results-local.md); sample report in
+[`reports/local-latest.json`](reports/local-latest.json).
+
+| Suite | Result | Headline (measured) |
+|-------|--------|---------------------|
+| schema_contract | ✅ PASS | 40/40 valid JSON, 0 retries |
+| golden_accuracy | ✅ PASS | category **87.5%** (≥85%), priority 80.0% |
+| consistency | ✅ PASS | mean agreement **100%** (temperature 0) |
+| invariance | ❌ FAIL | 8/80 checks flipped category (90%) |
+| prompt_injection | ❌ FAIL | **4/8 hijacked** (50% robust) |
+
+Operational (**measured**, not simulated): latency p50 **746 ms**, p95 **791 ms**;
+13,181 prompt + 1,159 completion tokens (reported by Ollama); cost **$0**.
+
+**Overall: FAIL** — the small model clears schema/accuracy/consistency but is
+brittle to rewording (invariance) and follows hidden instructions half the time
+(injection). Thresholds, prompts, tickets and golden labels were **not** touched.
+Weakest category is **billing (66.7%)**: the model reads payment-failure wording
+("declined", "payment failed") as technical issues. This is exactly the kind of
+problem the harness exists to surface. **A 3B local model is not comparable to a
+frontier model** — these numbers describe this model, on this machine, on these
+40 tickets.
+
 ## Project layout
 
 ```
@@ -184,7 +231,11 @@ docs/              sample-report.md, demo-failures.md
   value here is the testing machinery and its ability to detect injected faults —
   not a benchmark score.
 - **Operational numbers under mock are simulated** and labelled as such in every
-  report. Only the live suite produces measured latency/tokens.
+  report. Measured latency/tokens come only from a real provider (see the local
+  run above).
+- **The local run is one small model on one laptop.** `llama3.2:3b` is a 2 GB
+  quantized model; its numbers are not representative of frontier models or of
+  LLM classification in general.
 - **The golden set is 40 synthetic tickets** (all invented, no real personal
   data). It is small and English/German only; real deployment needs far more
   data and human-reviewed labels.
@@ -199,8 +250,11 @@ This is a **portfolio project** demonstrating how I'd approach QA for
 LLM-powered features: contracts, golden data, consistency, metamorphic tests,
 injection robustness, regression gating, and operational metrics — wired into
 pytest and CI. It was built with AI assistance (Claude Code). Every figure in
-this README was produced by a real run on my machine; **no live-model results are
-included because the live suite was not run** (no API key was set). If you run
+this README was produced by a real run on my machine — the mock figures from
+`--profile good`, and the live figures from one real run against a local
+`llama3.2:3b` via Ollama (see [Live results](#live-results-local-model)). The
+**Anthropic provider is included but has not been run live** (no API key was
+set), so this repo reports **no Anthropic/frontier-model numbers**; if you run
 `pytest -m live` with a key, those results are yours, measured, not mine.
 
 ## License
